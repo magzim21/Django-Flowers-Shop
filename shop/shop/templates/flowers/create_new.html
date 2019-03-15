@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+
+
+{% block body %}
+<h3>Создать цветок</h3>
+<form method="post" action="{% url 'create_new' %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Тип цветка</label>
+        <select required name="type_flower" class="form-control" id="exampleFormControlSelect1">
+            {% for type in all_types %}
+            <option value="{{ type.id }}">{{ type.title }}</option>
+            {% endfor %}
+        </select>
+
+
+        <label for="exampleFormControlInput1">Название цветка</label>
+        <input required name="title" type="text" class="form-control" id="exampleFormControlInput1"
+               placeholder="Название цветка">
+
+
+        <label for="exampleFormControlInput1">Цена за шт</label>
+        <input required name="price" type="text" class="form-control" id="exampleFormControlInput1"
+               placeholder="40">
+
+
+        <label for="exampleFormControlInput1">Высота стебля (м)</label>
+        <input required name="height" type="text" class="form-control" id="exampleFormControlInput1"
+               placeholder="0 м">
+    </div>
+    <button class="btn btn-success">Добавить</button>
+</form>
+
+{% if added %}
+<div class="alert alert-success">Добавление прошло успешно!</div>
+{% endif %}
+
+{% if error %}
+<div class="alert alert-danger">Ошибка:{{ error }}</div>
+{% endif %}
+{% endblock %}

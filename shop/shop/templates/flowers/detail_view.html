@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+{% block body %}
+{% if current_flower %}
+<h1>Страница продукта. Подробности тут.</h1>
+<h2>Название цветка {{current_flower.title}}</h2>
+{% if current_flower.image %}
+<img width="300" src="{{current_flower.image.url}}" alt="">
+{% else %}
+<div>   Изображение отсутствует</div>
+{% endif %}
+<h3>
+
+    <ul>
+        <li>Цена цветка {{current_flower.price}}</li>
+        <li>Тип цветка {{current_flower.type_flower}}</li>
+        <li>Высота цветка {{current_flower.height}}</li>
+        <li>Описание цветка {{current_flower.description}}</li>
+        <li><a class = "alert alert-danger" href="{%url 'delete' current_flower.id %}">Удалить цветок</a></li>
+    </ul>
+</h3>
+
+
+
+<h4>
+    Другие цветы типа {{ current_flower.type_flower }}:
+    <ul>
+    {% for flower in all_flowers %}
+        {% if current_flower.type_flower == flower.type_flower %}
+        <li><a href="{% url 'detail' flower.id %}">{{flower.title}} по цене <b>{{flower.price}} uah</b></a> </li>
+        {%endif%}
+
+    {% endfor %}
+</ul>
+</h4>
+
+<!--{% endif%}-->
+
+<!--{% if deleted %}-->
+<!--<h4>-->
+    <!--Другие цветы :-->
+    <!--<ul>-->
+    <!--{% for flower in all_flowers %}-->
+
+        <!--<li><a href="{% url 'detail' flower.id %}">{{flower.title}} по цене <b>{{flower.price}} uah</b></a> </li>-->
+
+
+    <!--{% endfor %}-->
+<!--</ul>-->
+<!--</h4>-->
+<!--{% endif %}-->
+{% endblock %}
+
+
+
+
+
+

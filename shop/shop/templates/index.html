@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maxim's shop</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<h1> Дарова! Это <a href="{% url 'home' %}">Maxim's shop.</a></h1>
+"test hey"
+
+{% block body %}
+<h3>И так, что у нас есть:</h3>
+{% if all_flowers %}
+<ul>
+    {% for flower in all_flowers %}
+    <li><a href="{% url 'detail' flower.id %}">{{flower.title}} по цене <b>{{flower.price}} uah</b></a></li>
+    {% endfor %}
+
+    {% else %}
+    <p class="alert alert-info">На данный момент цветов нет</p>
+    {% endif %}
+
+    <a class="btn btn-primary" href="{% url 'create_new' %}">Добавить новый цветок</a>
+    <a class="btn btn-info" href="{% url 'delete_all' %}">Удалить все</a>
+
+    {% endblock %}
+
+    {% if deleted %}
+    <div class="alert alert-success">Удаление прошло успешно!</div>
+    {% endif %}
+    {% if e %}
+    <div class="alert alert-danger"> Ошибка:{{ error }}</div>
+    {% endif %}
+
+</ul>
+</body>
+
+
+</html>
